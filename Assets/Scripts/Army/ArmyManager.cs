@@ -4,11 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
+using UnityEditor;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
 /*
-Préparer un terrain où toutes les terrasses sont accessibles
+Prï¿½parer un terrain oï¿½ toutes les terrasses sont accessibles
 */
 
 public abstract class ArmyManager : MonoBehaviour
@@ -35,8 +36,15 @@ public abstract class ArmyManager : MonoBehaviour
         var enemies = GetAllEnemiesOfType<T>(true).Where(
             item=>  Vector3.Distance(centerPos,item.transform.position)>minRadius
                     && Vector3.Distance(centerPos, item.transform.position) < maxRadius);
-
+        
         return enemies.FirstOrDefault()?.gameObject;
+    }
+
+    public GameObject GetFurthestEnemy<T>(Vector3 centerPos, float maxRadius) where T : ArmyElement
+    {
+        var enemies = GetAllEnemiesOfType<T>(true);
+        var sortedEnemies = enemies.OrderByDescending(item => Vector3.Distance(centerPos, item.transform.position)).ToList();
+        return sortedEnemies.FirstOrDefault()?.gameObject;
     }
 
     protected void ComputeStatistics(ref int nDrones,ref int nTurrets,ref int cumulatedHealth)
@@ -49,7 +57,7 @@ public abstract class ArmyManager : MonoBehaviour
     // Start is called before the first frame update
     public virtual IEnumerator Start()
     {
-        yield return null; // on attend une frame que tous les objets aient été instanciés ...
+        yield return null; // on attend une frame que tous les objets aient ï¿½tï¿½ instanciï¿½s ...
 
         GameObject[] allArmiesElements = GameObject.FindGameObjectsWithTag(m_ArmyTag);
         foreach (var item in allArmiesElements)

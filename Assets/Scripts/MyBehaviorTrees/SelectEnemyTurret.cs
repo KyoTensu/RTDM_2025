@@ -22,7 +22,7 @@ public class SelectEnemyTurret : Action
 		if (m_ArmyElement.ArmyManager == null) return TaskStatus.Running; // reference to the ArmyManager has not been injected yet
 
 		target.Value = m_ArmyElement.ArmyManager.GetRandomEnemy<Turret>(transform.position,minRadius.Value,maxRadius.Value)?.transform;
-
+		
 		if (target.Value != null) return TaskStatus.Success;
 		else return TaskStatus.Failure;
 
