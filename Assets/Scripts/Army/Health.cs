@@ -33,4 +33,10 @@ public class Health : MonoBehaviour
 
 		if (m_Health == 0 && m_OnDieEvent != null) m_OnDieEvent.Invoke();
 	}
+
+	public float Heal()
+	{
+		m_Health = Mathf.Max(m_Health + 20, 0);
+		return m_Health;
+	}
 }
