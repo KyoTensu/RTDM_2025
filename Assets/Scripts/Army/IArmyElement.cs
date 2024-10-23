@@ -5,5 +5,5 @@ using UnityEngine;
 public interface IArmyElement 
 {
 	ArmyManager ArmyManager { get; set; }
-	float Health { get; }
+	float Health { get; set; }
 }

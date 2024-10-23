@@ -9,6 +9,6 @@ public class Heal : MonoBehaviour
     
     public void HealArmy()
     {
-        
+        m_ArmyElements.ForEach(element => element.Health = 40);
     }
 }

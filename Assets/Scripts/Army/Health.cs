@@ -11,6 +11,11 @@ public class Health : MonoBehaviour
 	float m_Health;
 	public float Value => m_Health;
 
+	public void Set(float value)
+	{
+		m_Health = value;
+	}
+
 	[SerializeField] Slider m_HealthBar;
 
 	[SerializeField] UnityEvent m_OnDieEvent;
@@ -32,11 +37,5 @@ public class Health : MonoBehaviour
 		RefreshHealthDisplay();
 
 		if (m_Health == 0 && m_OnDieEvent != null) m_OnDieEvent.Invoke();
-	}
-
-	public float Heal()
-	{
-		m_Health = Mathf.Max(m_Health + 20, 0);
-		return m_Health;
 	}
 }
