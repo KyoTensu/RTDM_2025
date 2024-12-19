@@ -7,10 +7,12 @@ using TMPro;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class ArmyManagerRed : ArmyManager
 {
 	[SerializeField] private Button button;
+	private bool GUIisActive = true;
 	public override void ArmyElementHasBeenKilled(GameObject go)
 	{
 		base.ArmyElementHasBeenKilled(go);
@@ -46,11 +48,25 @@ public class ArmyManagerRed : ArmyManager
 		RefreshHudDisplay();
 	}
 
+	public void Restart()
+	{
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+	}
+
 	private void OnGUI()
 	{
-		if (GUI.Button(new Rect(10, Screen.height - 40, 100, 30), "Heal Army"))
+		if (GUIisActive)
 		{
-			HealArmy();
+			if (GUI.Button(new Rect(10, Screen.height - 40, 100, 30), "Heal Army"))
+			{
+				HealArmy();
+				GUIisActive = false;
+			}
+		}
+
+		if (GUI.Button(new Rect(120, Screen.height - 40, 100, 30), "Restart"))
+		{
+			Restart();
 		}
 	}
 }
